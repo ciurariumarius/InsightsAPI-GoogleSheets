@@ -148,8 +148,8 @@ function getAccessToken() {
 
 // Get Long Lived Token
 function getLongLivedToken(sessionToken) {
-  var clientId = "1190227505011039";
-  var clientSecret = "9bbdf897dae819cce87d28cdf7c24795";
+  var clientId = "_insert_client_id";
+  var clientSecret = "_insert_client_secret";
   var exchangeToken = sessionToken;
   
   var url = "https://graph.facebook.com/v18.0/oauth/access_token" +
