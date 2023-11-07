@@ -1,3 +1,8 @@
+//Config
+var config = {
+  clientId: "YOUR_CLIENT_ID",
+  clientSecret: "YOUR_CLIENT_SECRET"
+}
 // Main 
 function updateData() {
 
@@ -138,9 +143,7 @@ function getAccessToken() {
   if (sessionToken) {
     var longLivedToken = getLongLivedToken(sessionToken); // Function to obtain the long-lived token using the session token
     if (longLivedToken) {
-      var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-      var sheet = spreadsheet.getSheetByName("Token"); // Change this to your sheet name
-      sheet.getRange("A1").setValue(longLivedToken); // Set the long-lived token in the desired cell
+      SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Token").getRange("A1").setValue(longLivedToken);
       return longLivedToken;
     }
   }
@@ -148,14 +151,12 @@ function getAccessToken() {
 
 // Get Long Lived Token
 function getLongLivedToken(sessionToken) {
-  var clientId = "_insert_client_id";
-  var clientSecret = "_insert_client_secret";
   var exchangeToken = sessionToken;
   
   var url = "https://graph.facebook.com/v18.0/oauth/access_token" +
             "?grant_type=fb_exchange_token" +
-            "&client_id=" + clientId +
-            "&client_secret=" + clientSecret +
+            "&client_id=" + config.clientId +
+            "&client_secret=" + config.clientSecret +
             "&fb_exchange_token=" + exchangeToken;
 
   var response = UrlFetchApp.fetch(url);
@@ -187,3 +188,4 @@ function pushToSheet(dataAll, sheetName) {
   // Set the values for the entire data range
   sheet.getRange(1, 1, numRows, numCols).setValues(dataAll);
 }
+
